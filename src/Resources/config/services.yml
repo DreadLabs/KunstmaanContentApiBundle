@@ -1,0 +1,29 @@
+services:
+
+    dreadlabs_kunstmaan_content_api.media_type.negotiator:
+        class: Negotiation\Negotiator
+
+    dreadlabs_kunstmaan_content_api.media_type.listener:
+        class: DreadLabs\KunstmaanContentApiBundle\EventListener\MediaTypeListener
+        arguments:
+            - '@dreadlabs_kunstmaan_content_api.media_type.negotiator'
+            - ['application/json', 'text/html', 'application/xhtml+xml']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    dreadlabs_kunstmaan_content_api.metadata.cache:
+        class: Doctrine\Common\Cache\ApcuCache
+        calls:
+            - ['setNamespace', ['%serializer.mapping.cache.prefix%']]
+
+    dreadlabs_kunstmaan_content_api.controller:
+        class: DreadLabs\KunstmaanContentApiBundle\Controller\ApiController
+        arguments:
+            - '@serializer'
+            - '@dreadlabs_kunstmaan_content_api.type.factory'
+
+    dreadlabs_kunstmaan_content_api.type.factory:
+        class: DreadLabs\KunstmaanContentApiBundle\Api\Factory
+        arguments:
+            - '@router'
+            - '@doctrine.orm.entity_manager'

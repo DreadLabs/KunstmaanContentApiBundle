@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# script/cibuild: Setup environment for CI to run tests. This is primarily
+#                 designed to run on the continuous integration server.
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+# run tests.
+script/test
+
+echo "==> Create package archive..."
+composer archive --format=tar --dir=build --file=DreadLabsKunstmaanContentApiBundle
+
+echo "==> Create build logs archive..."
+(cd build && tar czf logs.tar.gz *.xml *.svg *.csv coverage/ 2>/dev/null)

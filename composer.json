@@ -1,0 +1,78 @@
+{
+    "name": "dreadlabs/kunstmaan-content-api-bundle",
+    "description": "Integrates a media type listener and a Content API layer into a Kunstmaan CMS instance.",
+    "type": "symfony-bundle",
+    "keywords": ["kunstmaan", "cms", "api", "rest"],
+    "homepage": "http://opensource.van-tomas.de/",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Thomas Juhnke",
+            "homepage": "http://opensource.van-tomas.de/"
+        }
+    ],
+    "require": {
+        "kunstmaan/bundles-cms": "~3.6.0",
+        "willdurand/negotiation": "~2.0.3"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "~4.4",
+        "friendsofphp/php-cs-fixer": "~1.12.1",
+        "phpmd/phpmd": "~2.4.3",
+        "pdepend/pdepend": "~2.2.4",
+        "phploc/phploc": "~3.0.1",
+        "sebastian/phpcpd": "~2.0.4",
+        "squizlabs/php_codesniffer": "~2.7.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "DreadLabs\\KunstmaanContentApiBundle\\": "src/",
+            "DreadLabs\\KunstmaanContentApiBundle\\Tests\\": "tests/"
+        }
+    },
+
+    "archive": {
+        "exclude": ["/.idea", "/build", "/script", "/vendor"]
+    },
+
+    "scripts": {
+        "test": "phpunit --verbose --tap --no-coverage",
+        "test-ci": "phpunit --colors=never",
+
+        "mess-detection": "phpmd src/,tests/ text codesize,unusedcode,naming,design --suffixes php",
+        "mess-detection-ci": "phpmd src/,tests/ xml codesize,unusedcode,naming,design --reportfile build/mess.xml --suffixes php",
+
+        "metrics-ci": "pdepend --jdepend-chart=build/metrics.svg --jdepend-xml=build/metrics.xml --overview-pyramid=build/metrics-pyramid.svg --summary-xml=build/metrics-summary.xml --suffix=php src/,tests/",
+
+        "measure-size": "phploc --names=*.php --count-tests --no-ansi src/ tests/",
+        "analyze-structure": "@measure-size",
+        "measure-size-ci": "phploc --names=*.php --count-tests --log-csv=build/size.csv --log-xml=build/size.xml --progress src/ tests/",
+        "analyze-structure-ci": "@measure-size",
+
+        "duplication-detection": "phpcpd --names=*.php --min-lines=5 --min-tokens=70 --progress --no-ansi src/ tests/",
+        "duplication-detection-ci": "phpcpd --names=*.php --log-pmd=build/duplication.xml --min-lines=5 --min-tokens=70 --progress src/ tests/",
+
+        "checkstyle": "phpcs -wsv --no-colors --standard=PSR2 --extensions=php --ignore=Tests/bootstrap.php src/ tests/",
+        "checkstyle-ci": "phpcs -wp --report=checkstyle --report-checkstyle=build/checkstyle.xml --standard=PSR2 --extensions=php --ignore=tests/bootstrap.php src/ tests/",
+
+        "static-analysis": [
+            "@mess-detection",
+            "@measure-size",
+            "@duplication-detection",
+            "@checkstyle"
+        ],
+        "static-analysis-ci": [
+            "@mess-detection-ci",
+            "@metrics-ci",
+            "@measure-size-ci",
+            "@duplication-detection-ci",
+            "@checkstyle-ci"
+        ],
+
+        "cs-fixer": "php-cs-fixer fix"
+    }
+}
