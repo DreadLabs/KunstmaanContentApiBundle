@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the `DreadLabs/KunstmaanContentApiBundle` project.
+ *
+ * (c) https://github.com/DreadLabs/KunstmaanContentApiBundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace DreadLabs\KunstmaanContentApiBundle\Tests\EventListener;
 
 use DreadLabs\KunstmaanContentApiBundle\EventListener\MediaTypeListener;
@@ -10,7 +19,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class MediaTypeListenerTest extends \PHPUnit_Framework_TestCase
 {
-
     const ACCEPT_HEADER = 'application/json;q=0.9,text/html,application/xhtml+xml,application/xml;q=0.8,*/*;q=0.7';
 
     /**

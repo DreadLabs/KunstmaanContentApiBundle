@@ -1,12 +1,21 @@
 <?php
 
+/*
+ * This file is part of the `DreadLabs/KunstmaanContentApiBundle` project.
+ *
+ * (c) https://github.com/DreadLabs/KunstmaanContentApiBundle/graphs/contributors
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace DreadLabs\KunstmaanContentApiBundle\Tests\Api;
 
 use Doctrine\ORM\EntityManagerInterface;
-use DreadLabs\KunstmaanContentApiBundle\Api\Factory;
 use DreadLabs\KunstmaanContentApiBundle\Api\Exception\MediaTypeNotFoundException;
 use DreadLabs\KunstmaanContentApiBundle\Api\Exception\MediaTypeNotMatchException;
 use DreadLabs\KunstmaanContentApiBundle\Api\Exception\NotSerializableEntityException;
+use DreadLabs\KunstmaanContentApiBundle\Api\Factory;
 use DreadLabs\KunstmaanContentApiBundle\Tests\Fixtures\InvalidEntity;
 use DreadLabs\KunstmaanContentApiBundle\Tests\Fixtures\StubType;
 use DreadLabs\KunstmaanContentApiBundle\Tests\Fixtures\ValidEntity;
@@ -16,7 +25,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject
      */
