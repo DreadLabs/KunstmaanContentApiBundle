@@ -45,7 +45,7 @@ class MediaTypeListener
         $request = $event->getRequest();
 
         $mediaType = $this->negotiator->getBest(
-            $request->headers->get('Accept'),
+            $request->headers->get('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
             $this->priorities
         );
 
